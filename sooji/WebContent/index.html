@@ -1,0 +1,176 @@
+<html>
+<head> 
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; frame-src *;">
+	<script src="../libs/jquery-1.12.4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="../images/2CA0F6.png"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+	<script src="https://cdn.rawgit.com/michalsnik/aos/1.0.1/dist/aos.js"></script>
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+	<title>Soo Ji Chung</title>
+</head>
+
+<style>
+
+	* {
+	  margin: 0;
+	  padding: 0;
+	}
+	
+	/*
+	.intro-text {
+		text-align:center;
+		margin-top:370px;
+		color: #ffffff;
+		font-size: 43px;
+		font-family: "Helvetica Neue", Helvetica, sans-serif, "Helvetica Roman", Icons;
+		cursor:pointer;
+	}
+	*/
+	
+	body {
+	  height: 100vh;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	.wrap {
+	  margin-top: 150px;
+	  cursor: pointer;
+	}
+	.line {
+	  width: 100vw;
+	}
+	.left, .right {
+	  width: 50vw;
+	  overflow: hidden;
+	  display: inline-block;
+	}
+	.left {
+	  color:#2CA0F6;
+	  transform: skew(0deg, -15deg);
+	}
+	.right {
+	  color: white;
+	  transform: skew(0deg, 15deg);
+	}
+	.left .content {
+	  width: 100vw;
+	  text-align: center;
+	}
+	.right .content {
+	  width: 100vw;
+	  text-align: center;
+	  transform: translate(-50vw);
+	}
+	span {
+	  display: inline-block;
+	  font-family: 'Montserrat', sans-serif;
+	  font-size: 10vw;
+	  /*text-transform: uppercase;*/
+	  line-height: .8;
+	  transition: ease-out .6s;
+	  height: 200px;
+	}
+	
+</style>
+
+<script>
+
+
+window.onload = function(){
+	// text effect
+	window.addEventListener('mousemove', handleMouseMove);
+	window.addEventListener('resize', handleWindowResize);
+	
+	const spansSlow = document.querySelectorAll('.spanSlow');
+	const spansFast = document.querySelectorAll('.spanFast');
+
+	let width = window.innerWidth;
+
+	function handleMouseMove(e) {
+	  let normalizedPosition = e.pageX / (width/2) - 1;
+	  // origin value
+	  /*
+	  let speedSlow = 100 * normalizedPosition;
+	  let speedFast = 200 * normalizedPosition;
+	  */
+	  // my value
+	  let speedSlow = 300 * normalizedPosition;
+	  let speedFast = 300 * normalizedPosition;
+	  
+	  spansSlow.forEach((span) => {
+	    span.style.transform = `translate(${speedSlow}px)`;
+	  });
+	  spansFast.forEach((span) => {
+	    span.style.transform = `translate(${speedFast}px)`
+	  })
+	}
+	//we need to recalculate width when the window is resized
+	function handleWindowResize() {
+	  width = window.innerWidth;
+	}
+};
+
+
+
+// jquery ready
+$(document).ready(function () {
+    $("#goMain").click(function (event) {
+    	$("#goMain").fadeOut(1400, function() {
+    		$(location).attr("href", "./pages/main.html");
+    	});
+    });
+});
+</script>
+	
+<body style="background-color:#000000;">
+
+<!--
+<div id="goMain" class="intro-text">
+Soo Ji Chung
+</div>
+-->
+
+
+
+<div id="goMain" class="wrap">
+	<!-- 1 row -->
+	<div class="line">
+		<!-- left side -->
+		<div class="left">
+			<div class="content">
+				<span class="spanSlow">Soo Ji</span>
+			</div>
+		</div><!-- right side
+	--><div class="right">
+			<div class="content">
+				<span class="spanSlow">Soo Ji</span>
+			</div>
+		</div>
+	</div>
+	<!-- 2 row -->
+	<div class="line">
+		<!-- left side -->
+		<div class="left">
+			<div class="content">
+				<span class="spanFast">Chung</span>
+			</div>
+		</div><!-- right side
+	--><div class="right">
+			<div class="content">
+				<span class="spanFast">Chung</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+

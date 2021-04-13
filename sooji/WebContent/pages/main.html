@@ -1,0 +1,400 @@
+<html>
+<head> 
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; frame-src *;">
+	<script src="../libs/jquery-1.12.4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="../images/2CA0F6.png"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+	<script src="https://cdn.rawgit.com/michalsnik/aos/1.0.1/dist/aos.js"></script>
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	<title>Soo Ji Chung</title>
+</head>
+
+<style>
+
+	.left-area {
+	/*
+		overflow:hidden;
+		width:20%;
+		height: 100%;
+		float:left;
+		color: #ffffff;
+		font-family:Times, Times New Roman, serif;
+	*/
+	  height: 100%; /* Full-height: remove this if you want "auto" height */
+	  width: 400px; /* Set the width of the sidebar */
+	  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+	  z-index: 1; /* Stay on top */
+	  top: 0; /* Stay at the top */
+	  left: 0;
+	  overflow-x: hidden; /* Disable horizontal scroll */
+	  padding-top: 20px;
+	}
+	
+	.contents-area {
+	/*
+		float:left;
+		height:100%;
+		width:80%;
+		overflow:auto;
+	*/
+		margin-left: 400px; /* Same as the width of the sidebar */
+	  	padding: 0px 10px;
+	}
+	
+	.italic {
+		font-style: italic;
+		color: #ffffff;
+	}
+	
+	.name-text {
+		text-align:left;
+		margin-left:-10px;
+		color: #ffffff;
+		font-size: 40px;
+		font-family: "Helvetica Neue", Helvetica, sans-serif, "Helvetica Roman", Icons;
+	}
+	
+	.intro-text {
+		text-align:left;
+		margin-left: 40px;
+		margin-top: 15px;
+		color: #ffffff;
+		font-family: "Helvetica Neue", Helvetica, sans-serif, "Helvetica Roman", Icons;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 1.4rem;
+		line-height: 1.25;
+		letter-spacing: -0.3px;
+	}
+	
+	.sooji-img {
+  		 width:288px;
+  		 position:absolute;
+  		 left:70px;
+ 		 top:180px;
+  		 background:#000;
+  		 z-index: 999;
+	}
+	
+	.sooji-img img {
+  		 width:288px;
+	}
+	
+	.numb-text {
+		text-align:center;
+		color: #ffffff;
+		font-size: 18px;
+		font-family: "Helvetica Neue", Helvetica, sans-serif, "Helvetica Roman", Icons;
+	}
+	
+	.main-text {
+		text-align:center;
+		color: #ffffff;
+		font-size: 26px;
+		font-family: "Helvetica Neue", Helvetica, sans-serif, "Helvetica Roman", Icons;
+		font-style: bold;
+		font-weight: 400;
+		font-size: 1.4rem;
+		line-height: 1.25;
+		letter-spacing: -0.3px;
+	}
+	
+	.sub-text {
+		text-align:center;
+		color: #ffffff;
+		font-style: italic;
+		font-size: 16px;
+		font-family:"Lucida Bright", Georgia, serif 
+	}
+	
+
+	.modal-dialog {
+	    max-width: 1150px;
+	    margin-top: 140px
+	}
+	
+	.modal-body {
+	  position:relative;
+	  padding:0px;
+	}
+	
+	.close {
+	  position:absolute;
+	  right:-30px;
+	  top:0;
+	  z-index:999;
+	  font-size:2rem;
+	  font-weight: normal;
+	  color:#fff;
+	  opacity:1;
+	}
+	
+	.loader {
+		width:100%;
+		height:100%;
+		position:absolute;
+		z-index: 0;
+		left:0px;
+		top:0px;
+		background:#000;
+	}
+	
+	.sooji-area {
+		z-index:3000;
+		margin-left:40px;
+		margin-top:15px;
+		position:absolute;
+	}	
+	
+	a:link {
+		color: #ffffff;
+	}
+	
+	a:visited {
+		color: #ffffff;		
+	}
+	
+	a:active {
+		color: #ffffff;		
+	}
+	
+</style>
+
+<script>
+
+$(window).load(function(){
+	$('.loader').fadeOut(500);
+});
+
+// jquery ready
+$(document).ready(function() {
+	
+	var $videoSrc;  
+	
+	$('.video-div').click(function() {
+	    $videoSrc = $(this).data( "src" );
+	});
+
+	// when the modal is opened autoplay it  
+	$('#myModal').on('shown.bs.modal', function (e) {
+		// set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+		$("#video").attr('src',$videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" ); 
+	});
+
+	// stop playing the youtube video when I close the modal
+	$('#myModal').on('hide.bs.modal', function (e) {
+	    // a poor man's stop video
+	    $("#video").attr('src',$videoSrc); 
+	});
+	
+	// when page loaded
+	$('#sooji-img').hide();
+	
+	//function initialize
+	function changeSoojiText(flag) {
+		if(flag=="on") {
+			//me.style.color = '#0000ff';
+			$('#sooji-img').show();
+		} else if(flag=="off") {
+			//me.style.color = 'white';
+			$('#sooji-img').hide(300, 'linear');
+		}
+	}
+	
+	let soojiText = document.getElementById('sooji');
+	
+	soojiText.addEventListener('mouseenter', function(){changeSoojiText('on');});
+	soojiText.addEventListener('mouseleave', function(){changeSoojiText('off');});
+	
+});
+
+
+	
+</script>
+	
+<body style="background-color:#000000;">
+
+	<!-- left area -->
+	<div class="left-area">
+	
+		<div class="sooji-area">
+			<img src="../images/name1.png" width="300px;">
+		</div>
+		
+		<div class="loader"></div>
+		
+		<br><br><br><br>
+		
+		<div style="height:10px"></div>
+			
+		<div class="intro-text">
+			<span id="sooji" class="italic-test">
+				* Soo Ji
+			</span> 
+				is a multidisciplinary designer based in London and Seoul. Currently, she is completing
+				<br>
+				her BA of Graphic Communication Design at Central Saint Martins
+				<br>
+				College of Art. Previously, she worked at 
+			<span class="italic">
+				<a href="http://tickercorp.com/" target="_blank"> Ticker.</a> </span> 
+				 <br>
+				 Full portfolio available upon request. 
+			<br><br>
+			
+			<span style="color:white;">
+				<i class="far fa-envelope"></i>
+				<a href="http://gmail.com/"> chungsj1026@gmail.com</a>
+			</span>
+		</div>
+		
+		
+		<div id="sooji-img" class="sooji-img">
+			<img src="../images/sj.jpg">
+		</div>
+	</div>
+	
+	<!-- contents area -->
+	<div class="contents-area">
+	
+		<div class="loader"></div>
+				
+		<div style="text-align:center;">
+			<br><br><br><br><br>
+			<span class="video-div" data-toggle="modal" data-src="https://player.vimeo.com/video/418903365" data-target="#myModal">
+				<img src="../images/soojichung0_final.png" alt="Have(n't)" width="62%">
+			</span>
+			<br><br>
+			<div class="numb-text">
+				00
+			</div>
+			<div class="main-text">
+				Have(n't)
+			</div>
+			<div class="sub-text">
+				2020, Film, Directing, Visual Design
+			</div>
+		</div>
+		
+		
+		<div style="text-align:center;" data-aos="fade-up">
+			<br><br>
+			<span class="video-div" data-toggle="modal" data-src="https://player.vimeo.com/video/418975671" data-target="#myModal">
+				<img src="../images/soojichung1_final.png" alt="Regrette" width="62%">
+			</span>
+			<br><br>
+			<div class="numb-text">
+				01
+			</div>
+			<div class="main-text"> 
+				Regrette
+			</div>
+			<div class="sub-text">
+				2020, Film, Directing, Visual Design
+			</div>
+		</div>
+		<br>
+		<div style="text-align:center;" data-aos="fade-up">
+			<br>
+			<a href="./ticker.html">
+				<img src="../images/ticker_final1.1.png" alt="Ticker" width="62%">
+			</a>
+			<br><br>
+			<div class="numb-text">
+				02
+			</div>
+			<div class="main-text"> 
+				Ticker
+			</div>
+			<div class="sub-text">
+				2021, App design, Identities, Web Design
+			</div><br>
+		</div>
+		
+	
+		<div style="text-align:center;" data-aos="fade-up">
+			<br>
+			<a href="./Hoo.html">
+				<img src="../images/soojichung3_final.png" alt="Hoo" width="62%">
+			</a>
+			<div class="numb-text"><br>
+				03
+			</div>
+			<div class="main-text"> 
+				Hoo(後)
+			</div>
+			<div class="sub-text">
+				2019, Photography, Print, Photo Book Design
+			</div>
+		</div>
+	
+		<div style="text-align:center;" data-aos="fade-up">
+			<br><br>
+			<a href="./A3.html">
+				<img src="../images/asia flag.png" width="29.5%"> &nbsp;&nbsp;&nbsp;
+				<img src="../images/africa flag.png" width="29.5%">
+			<br><br>
+				<img src="../images/central flag1.png" width="29.5%"> &nbsp;&nbsp;&nbsp;
+				<img src="../images/middle flag1.png" width="29.5%">
+				</a>
+			<div class="numb-text"><br>
+				04
+			</div>
+			<div class="main-text"> 
+				A3; The Museum of New Asia, Africa, Central & Latin America
+			</div>
+			<div class="sub-text">
+				2019, Brand Identity, Concept Design, Poster Design, and Exhibition Catalog
+			</div>
+		</div>
+		
+		<div style="text-align:center;" data-aos="fade-down">
+			<br><br>
+			<a href="./csmxhammerton.html">
+				<img src="../images/soojichung5_final.png" alt="A3 " width="60%">
+				</a>
+			<div class="numb-text"><br>
+				05
+			</div>
+			<div class="main-text"> 
+				CSM Beer Identity Project 2020
+			</div>
+			<div class="sub-text">
+				2020, Visual Identity, Identity, Can Design 
+			</div>
+		</div>
+		<br><br><br>
+	</div>		
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>        
+        <!-- 16:9 aspect ratio -->
+		<div class="embed-responsive embed-responsive-16by9">
+		  <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="autoplay"></iframe>
+		</div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+
+<script>
+	AOS.init({
+		duration: 1200	
+	});
+</script>
+
+</body>
+</html>
+
